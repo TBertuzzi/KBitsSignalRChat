@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Chat";
+}
+<h2>Chat</h2>
+<div class="container">
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="Send" />
+    <input type="hidden" id="displayname" />
+    <ul id="discussion"></ul>
+</div>
+@section scripts {
+    <!--A Biblioteca Jquery esta referenciada em _Layout.cshtml. -->
+    <!--Referencia da Biblioteca SignalR -->
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <!--Referencia gerada automaticamente. -->
+    <script src="~/signalr/hubs"></script>
+    <!--SignalR script para atualizar as mensagens recebidas.-->
+    <script>
+        $(function () {
+            // Referencia auto gerada ao Proxy Hub.
+            var chat = $.connection.chatHub;
+            // Função criada para mostrar as mensagens.
+            chat.client.addNewMessageToPage = function (name, message) {
+                // Add the message to the page.
+                $('#discussion').append('<li><strong>' + htmlEncode(name)
+                    + '</strong>: ' + htmlEncode(message) + '</li>');
+            };
+            // Obtendo nome do usuario e armazenando para exibir as mensagens.
+            $('#displayname').val(prompt('Digite seu nome:', ''));
+            // Foco inicial no texbox de mensagem.
+            $('#message').focus();
+            // Inicio da coneção.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    // Chamando send method do Hub.
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    // Limpando o texto apos escrever.
+                    $('#message').val('').focus();
+                });
+            });
+        });
+        // Função opcional para formatar mensagens na pagina.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+}

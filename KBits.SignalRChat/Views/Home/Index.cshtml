@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Chat SignalR";
+}
+
+<div class="jumbotron">
+    <h1>SignalR Chat Teste</h1>
+    <p class="lead">Aplicação para testar as classes SignalR com um simples chat.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2> Este exemplo foi feito seguindo o tutorial da microsoft.</h2>
+       <p><a class="btn btn-default" href="https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/tutorial-getting-started-with-signalr-and-mvc">Voce pode ler mais sobre isso na propria microsoft. &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Saiba mais sobre SignalR</h2>
+        <p><a class="btn btn-default" href="http://signalr.net/">Site do projeto &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Outros tutoriais</h2>
+        <p><a class="btn btn-default" href="https://www.asp.net/signalr">Veja Mais &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Iniciar o Chat</h2>
+        <p><a class="btn btn-primary" href="@Url.Action("Chat", "Home",new { area = "" })">Bora! &raquo;</a></p>
+    </div>
+</div>
